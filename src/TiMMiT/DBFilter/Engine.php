@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Bestand welke de Group Filter Engine bevat
+ * DB Filter Engine – parses filter expressions into Collection/Param clauses.
  */
 
 declare(strict_types=1);
@@ -13,6 +13,7 @@ use TiMMiT\DBFilter\Engine\AtomNode;
 use TiMMiT\DBFilter\Engine\NotNode;
 use TiMMiT\DBFilter\Engine\AndNode;
 use TiMMiT\DBFilter\Engine\OrNode;
+
 use TiMMiT\MySQL\Where\Collection;
 use TiMMiT\MySQL\Where\Param;
 
@@ -59,11 +60,10 @@ class Engine
     {
         /* Split the input into tokens. */
         $tokens = $this->tokenize($input);
-        var_dump($tokens);
 
         /* Build a small AST representing the boolean expression. */
         $ast = $this->parseExpression($tokens);
-        var_dump($ast);
+
         /* Compile the AST into a Where expression. */
         $Collection = $this->compile($ast, $field, $table);
 
@@ -192,7 +192,7 @@ class Engine
 
         /* Atom token (regex, range, wildcard, etc.). */
         $atom = array_shift($tokens);
-        if (is_null($atom) | '' === $atom) {
+        if (is_null($atom) || '' === $atom) {
             throw new \InvalidArgumentException('Invalid group filter: empty token.');
         }
         return new AtomNode($atom);
@@ -220,9 +220,6 @@ class Engine
         }
 
         if ($node instanceof NotNode) {
-            var_dump($node);
-            // TODO: Dit gaat fout!
-
             /* Unary NOT is represented as a NOT collection with a single child. */
             $NotCollection = new Collection('NOT');
             $NotCollection->add($this->compile($node->child, $field, $table));
@@ -284,7 +281,8 @@ class Engine
         }
 
         /* Range: a-b -> BETWEEN 'a' AND 'b' */
-        if (preg_match('/^(.+)-(.+)$/', $token, $m)) {
+        $result = preg_match('/^(.+)-(.+)$/', $token, $m);
+        if (is_int($result) && $result > 0) {
             return $Param->betweenRange($m[1], $m[2]);
         }
 

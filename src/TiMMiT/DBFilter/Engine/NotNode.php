@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Bestand welke de NotNode Class bevat
+ * Unary NOT node.
  */
 
 declare(strict_types=1);

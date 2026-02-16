@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Bestand welke de OrNode Class bevat
+ * Binary OR node.
  */
 
 declare(strict_types=1);

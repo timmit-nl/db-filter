@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Bestand welke de AtomNode Class bevat
+ * Atom node holding a single token produced by the tokenizer.
  */
 
 declare(strict_types=1);

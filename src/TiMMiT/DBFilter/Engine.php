@@ -60,11 +60,10 @@ class Engine
     {
         /* Split the input into tokens. */
         $tokens = $this->tokenize($input);
-        var_dump($tokens);
 
         /* Build a small AST representing the boolean expression. */
         $ast = $this->parseExpression($tokens);
-        var_dump($ast);
+
         /* Compile the AST into a Where expression. */
         $Collection = $this->compile($ast, $field, $table);
 
@@ -221,9 +220,6 @@ class Engine
         }
 
         if ($node instanceof NotNode) {
-            var_dump($node);
-            // TODO: Dit gaat fout!
-
             /* Unary NOT is represented as a NOT collection with a single child. */
             $NotCollection = new Collection('NOT');
             $NotCollection->add($this->compile($node->child, $field, $table));

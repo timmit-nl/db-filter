@@ -193,7 +193,7 @@ class Engine
 
         /* Atom token (regex, range, wildcard, etc.). */
         $atom = array_shift($tokens);
-        if (is_null($atom) | '' === $atom) {
+        if (is_null($atom) || '' === $atom) {
             throw new \InvalidArgumentException('Invalid group filter: empty token.');
         }
         return new AtomNode($atom);
@@ -285,7 +285,8 @@ class Engine
         }
 
         /* Range: a-b -> BETWEEN 'a' AND 'b' */
-        if (preg_match('/^(.+)-(.+)$/', $token, $m)) {
+        $result = preg_match('/^(.+)-(.+)$/', $token, $m);
+        if (is_int($result) && $result > 0) {
             return $Param->betweenRange($m[1], $m[2]);
         }
 

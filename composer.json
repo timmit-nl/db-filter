@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "timmit/db-mysql": ">=v10.1"
+        "timmit/db-mysql": ">=v11.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.4.8",

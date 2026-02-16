@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Bestand welke de Group Filter Engine bevat
+ * DB Filter Engine – parses filter expressions into Collection/Param clauses.
  */
 
 declare(strict_types=1);
@@ -13,6 +13,7 @@ use TiMMiT\DBFilter\Engine\AtomNode;
 use TiMMiT\DBFilter\Engine\NotNode;
 use TiMMiT\DBFilter\Engine\AndNode;
 use TiMMiT\DBFilter\Engine\OrNode;
+
 use TiMMiT\MySQL\Where\Collection;
 use TiMMiT\MySQL\Where\Param;
 

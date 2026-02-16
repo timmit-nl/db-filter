@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Bestand welke de AndNode Class bevat
+ * N-ary AND node.
+ *
+ * This is used to make term parsing stable: a term is always represented as an AND node with a
+ * non-empty list of children (even if it contains only one factor).
  */
 
 declare(strict_types=1);

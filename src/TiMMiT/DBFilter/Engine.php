@@ -275,8 +275,6 @@ class Engine
 
         /* Prefix wildcard: prefix* -> LIKE 'prefix%' */
         if (str_ends_with($token, '*')) {
-            // $val = rtrim($token, '*');
-            // var_dump($val);
             return $Param->escapeSpecialCharacters(false)->is($token);
         }
 
